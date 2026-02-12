@@ -1,0 +1,26 @@
+{{> menu id="about"}}
+
+<section class="ui left aligned middle aligned segment">
+
+
+<div class="ui centered card">
+  <div class="image">
+    <img src=" {{emp.image}}">
+  </div>
+  <div class="content">
+    <a class="header">{{emp.fullname}} </a>
+    <div class="meta">
+      <span class="date">Joined in {{emp.joined}}</span>
+    </div>
+    <div class="description">
+        is an {{emp.job}}  living in {{emp.city}}.
+    </div>
+  </div>
+  <div class="extra content">
+    <a>
+      <i class="user icon"></i>
+        {{emp.mates}} contacts
+    </a>
+  </div>
+</div>
+</section>
