@@ -3,10 +3,11 @@
     {
       "id": "01",
       "title": "Beethoven Sonatas",
+      "rating": 3,
       "songs": [
         {
           "id": "05",
-          "title": "Piano Sonata No. 7",
+          "title": "Piano Sonata No. 1",
           "artist": "Beethoven"
         },
         {
@@ -19,6 +20,7 @@
     {
       "id": "02",
       "title": "Beethoven Concertos",
+      "rating": 4,
       "songs": [
         {
           "id": "07",
@@ -36,6 +38,13 @@
           "artist": "Beethoven"
         }
       ]
+    },
+    {
+      "id": "e027af7a-8d52-4c3f-9382-ada42bb2cdb2",
+      "title": "Beethoven Symphonies",
+      "rating": 2,
+      "date": "2026-03-19T15:50:43.536Z",
+      "songs": []
     }
   ]
 }

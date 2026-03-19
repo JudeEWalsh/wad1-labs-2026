@@ -19,9 +19,12 @@ const dashboard = {
     },
     
     addPlaylist(request, response){
+      const timestamp = new Date();
+
       const newPlaylist = {
         id: uuidv4(),
         title: request.body.title,
+        date: timestamp,
         songs: [],
       };
       playlistStore.addPlaylist(newPlaylist);
