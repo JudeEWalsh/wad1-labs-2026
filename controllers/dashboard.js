@@ -8,9 +8,39 @@ const dashboard = {
     createView(request, response) {
       logger.info("Dashboard page loading!")
 
+      const searchTerm = request.query.searchTerm || "";
+
+      const playlists = searchTerm
+        ? playlistStore.searchPlaylist(searchTerm)
+        : playlistStore.getAllPlaylists();
+
+      const sortField = request.query.sort;
+      const order = request.query.order === "desc" ? -1 : 1;
+
+      let sorted = playlists;
+
+      if (sortField){
+        sorted = playlists.slice().sort((a, b) => {
+          if(sortField == "title"){
+            return a.title.localeCompare(b.title) * order;
+          }
+
+          if(sortField === "rating"){
+            return (a.rating - b.rating) * order;
+          }
+
+          return 0;
+        })
+      }
+
       const viewData = {
         title: "Playlist App Dashboard",
-        playlists: playlistStore.getAllPlaylists()
+        playlists: playlists,
+        search: searchTerm,
+        titleSelected: request.query.sort === "title",
+        ratingSelected: request.query.sort === "rating",
+        ascSelected: request.query.order === "asc",
+        descSelected: request.query.order === "desc",
       };
 
       logger.debug(viewData.playlists)
@@ -24,6 +54,7 @@ const dashboard = {
       const newPlaylist = {
         id: uuidv4(),
         title: request.body.title,
+        rating: parseInt(request.body.rating),
         date: timestamp,
         songs: [],
       };
