@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "firstName": "homer",
+      "lastName": "simpson",
+      "email": "homer@simpson.com",
+      "password": "secret",
+      "id": "3ad52697-6d98-4d80-8273-084de55a86c0"
+    },
+    {
+      "firstName": "marge",
+      "lastName": "simpson",
+      "email": "marge@simpson.com",
+      "password": "secret",
+      "id": "2b6f0989-7b7f-4a38-ad26-aa06b922d751"
+    },
+    {
+      "firstName": "Mary",
+      "lastName": "Lyng",
+      "email": "mary.lyng@setu.ie",
+      "password": "Trustno1",
+      "id": "94ae21e4-962a-4d8c-ac0b-02bdc80c86c7"
+    },
+    {
+      "firstName": "Jude",
+      "lastName": "Walsh",
+      "email": "jude.walsh@setu.ie",
+      "password": "secret",
+      "id": "ac52f2c2-2c32-4d98-9c04-1230723e10a0"
+    }
+  ]
+}

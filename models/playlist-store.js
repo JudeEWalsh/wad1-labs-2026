@@ -22,8 +22,9 @@ const playlistStore = {
     },
 
     addPlaylist(playlist) {
-        this.store.addCollection(this.collection, playlist);
-    },
+    this.store.addCollection(this.collection, playlist);
+},
+
 
     removeSong(id, songId) {
         this.store.removeItem(this.collection, id, this.array, songId);
@@ -42,6 +43,17 @@ const playlistStore = {
 
     editSong(id, songId, updatedSong) {
         this.store.editItem(this.collection, id, songId, this.array, updatedSong);
+    },
+
+    getUserPlaylists(userid){
+        return this.store.findBy(this.collection, (playlist => playlist.userid === userid));
+    },
+    
+    searchUserPlaylists(search, userid){
+        return this.store.findBy(
+            this.collection,
+            (playlist => playlist.userid === userid && playlist.title.toLowerCase().include(search.toLowerCase()))
+        )
     },
 
 

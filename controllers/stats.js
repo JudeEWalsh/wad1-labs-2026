@@ -1,49 +1,64 @@
 'use strict';
 import logger from "../utils/logger.js";
 import playlistStore from "../models/playlist-store.js";
+import userStore from "../models/user-store.js";
+import accounts from './accounts.js';
 
 const stats = {
     createView(request, response) {
-        logger.info("Stats page loading!");
-        // app statistics calculations
-        const playlists = playlistStore.getAllPlaylists();
+        const loggedInUser = accounts.getCurrentUser(request);
 
-        let numPlaylists = playlists.length;
+        if (loggedInUser) {
+            logger.info("Stats page loading!");
 
-        let numSongs = playlists.reduce((total, playlist) => total + playlist.songs.length, 0);
+            // app statistics calculations
+            const playlists = playlistStore.getAllPlaylists();
 
-        let average = numPlaylists > 0 ? (numSongs / numPlaylists).toFixed(2) : 0;
+            const users = userStore.getAllUsers();
 
-        let totalRating = playlists.reduce((total, playlist) => total + parseInt(playlist.rating), 0);
-        let avgRating = numPlaylists > 0 ? totalRating/numPlaylists : 0;
+            let numPlaylists = playlists.length;
 
-        let mapped = playlists.map(playlist => playlist.rating);
-        let maxRating = Math.max(...mapped);
-        let maxRated = playlists.filter(playlist => playlist.rating === maxRating);
-        let favTitles = maxRated.map(item => item.title);
+            let numUsers = users.length;
 
-        let songMap = playlists.map(playlists.songs);
-        let highAmount = Math.max(...songMap);
-        let highestAmount = playlists.filter(playlist => playlist.songs === highAmount);
-        let allSongs = highestAmount.map(item => item.title);
+            let numSongs = playlists.reduce((total, playlist) => total + playlist.songs.length, 0);
 
-        const statistics = {
-            displayNumPLaylists: numPlaylists,
-            displayNumSongs: numSongs,
-            displayAverage: average,
-            displayAvgRating: avgRating.toFixed(2),
-            highest: maxRating,
-            displayFav: favTitles,
-            displayLargestPlaylist: allSongs
-        };
+            let average = numPlaylists > 0 ? (numSongs / numPlaylists).toFixed(2) : 0;
 
-        const viewData = {
-            title: "Playlist App Statistics",
-            stats: statistics
-        };
+            let totalRating = playlists.reduce((total, playlist) => total + parseInt(playlist.rating), 0);
 
-        response.render("stats", viewData);
+            let avgRating = numPlaylists > 0 ? totalRating / numPlaylists : 0;
+
+            let maxRating = playlists.length > 0 ? Math.max(...playlists.map(playlist => playlist.rating)) : 0;
+            let maxRated = playlists.filter(playlist => playlist.rating === maxRating);
+            let favTitles = maxRated.map(item => item.title);
+
+            let longestSize = playlists.length > 0 ? Math.max(...playlists.map(playlist => playlist.songs.length)) : 0;
+            let longestPlaylists = playlists.filter(playlist => playlist.songs.length === longestSize);
+            let longestPlaylistTitles = longestPlaylists.map(item => item.title);
+      
+            const statistics = {
+                displayNumPlaylists: numPlaylists,
+                displayNumSongs: numSongs,
+                displayAverage: average,
+                displayAvgRating: avgRating,
+                highest: maxRating,
+                displayFav: favTitles,
+                longest: longestSize,
+                longestTitles: longestPlaylistTitles,
+                numUsers:numUsers
+            };
+
+            const viewData = {
+                title: "Playlist App Statistics",
+                stats: statistics,
+                fullname: loggedInUser.firstName + ' ' + loggedInUser.lastName
+            };
+
+            response.render("stats", viewData);
+        }
+        else response.redirect('/');
     },
+
 };
 
 export default stats;
