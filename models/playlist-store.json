@@ -21,6 +21,18 @@
       "rating": 2,
       "songs": [],
       "date": "2026-04-16T15:30:02.770Z"
+    },
+    {
+      "id": "a09033ef-4662-4033-b613-cf6c1ad07fa7",
+      "userid": "ac52f2c2-2c32-4d98-9c04-1230723e10a0",
+      "title": "Jude's new playlist",
+      "rating": 4,
+      "songs": [],
+      "date": "2026-04-23T15:23:32.317Z",
+      "picture": {
+        "url": "http://res.cloudinary.com/did4ypymm/image/upload/v1776957812/vc9ew6ibgddn2br4ldky.jpg",
+        "public_id": "vc9ew6ibgddn2br4ldky"
+      }
     }
   ]
 }
